@@ -128,14 +128,24 @@ class App(customtkinter.CTk):
         )
         self.deadline_filter.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
-        # Кнопка сброса фильтров
+        # Кнопка сброса фильтров (теперь column=3)
         self.reset_filters_btn = customtkinter.CTkButton(
             self.filter_frame,
             text="Сбросить фильтры",
             command=self.reset_filters,
             width=120
         )
-        self.reset_filters_btn.grid(row=0, column=2, padx=(5, 10), pady=5, sticky="e")
+        self.reset_filters_btn.grid(row=0, column=3, padx=(5, 10), pady=5, sticky="e")
+
+        # Фильтр сортировки по дате
+        self.sort_filter_var = tkinter.StringVar(value="Сортировка")
+        self.sort_filter = customtkinter.CTkOptionMenu(
+            self.filter_frame,
+            variable=self.sort_filter_var,
+            values=["Сортировка", "По дате создания (новые)", "По дате создания (старые)", "По дедлайну (ближайшие)"],
+            command=lambda _: self.update_task_display()
+        )
+        self.sort_filter.grid(row=0, column=2, padx=5, pady=5, sticky="w")
 
         # Прокручиваемая область для задач
         self.tasks_scrollable = customtkinter.CTkScrollableFrame(self.tabview.tab("Доска задач"))
@@ -176,6 +186,7 @@ class App(customtkinter.CTk):
         """Сброс всех фильтров"""
         self.priority_filter_var.set("Все приоритеты")
         self.deadline_filter_var.set("Все сроки")
+        self.sort_filter_var.set("Сортировка")
         self.update_task_display()
 
     def add_task(self):
@@ -215,11 +226,14 @@ class App(customtkinter.CTk):
             messagebox.showerror("Ошибка", f"Не удалось добавить задачу: {str(e)}")
 
     def update_task_display(self, event=None):
-        """Обновление отображения задач на доске с учетом фильтров"""
+        
+        # """Обновление отображения задач на доске с учетом фильтров"""
+        
         try:
             # Получаем текущие значения фильтров
             priority_filter = self.priority_filter_var.get()
             deadline_filter = self.deadline_filter_var.get()
+            sort_filter = self.sort_filter_var.get()
 
             # Формируем базовый SQL запрос
             sql = "SELECT * FROM tasks"
@@ -234,26 +248,63 @@ class App(customtkinter.CTk):
             elif deadline_filter == "Без дедлайна":
                 conditions.append("deadline IS NULL")
             elif deadline_filter == "Просроченные":
-                conditions.append("deadline IS NOT NULL AND date(deadline, '%d.%m.%y') < date('now', 'localtime')")
+                conditions.append("deadline IS NOT NULL")
+
             # Добавляем условия к запросу, если они есть
             if conditions:
                 sql += " WHERE " + " AND ".join(conditions)
 
-            # Добавляем сортировку
-            sql += " ORDER BY created_at DESC"
+            # Добавляем сортировку в зависимости от выбранного фильтра
+            if sort_filter == "По дате создания (новые)":
+                sql += " ORDER BY created_at DESC"
+            elif sort_filter == "По дате создания (старые)":
+                sql += " ORDER BY created_at ASC"
+            elif sort_filter == "По дедлайну (ближайшие)":
+                sql += """ ORDER BY 
+                    CASE WHEN deadline IS NULL THEN 1 ELSE 0 END, 
+                    substr(deadline, 7, 2) || substr(deadline, 4, 2) || substr(deadline, 1, 2) ASC"""
+            else:
+                sql += " ORDER BY created_at DESC"  # Сортировка по умолчанию
 
             self.cursor.execute(sql)
             tasks = self.cursor.fetchall()
 
-            if not tasks:
+            # Фильтрация просроченных задач на стороне Python, если выбран соответствующий фильтр
+            filtered_tasks = []
+            current_date = datetime.now().date()
+            
+            for task in tasks:
+                task_id, task_text, status, priority, deadline, created_at = task
+                
+                if deadline_filter == "Просроченные":
+                    try:
+                        deadline_date = datetime.strptime(deadline, '%d.%m.%y').date()
+                        if deadline_date >= current_date:
+                            continue  # Пропускаем непросроченные задачи
+                    except ValueError:
+                        continue  # Пропускаем задачи с некорректным форматом даты
+                
+                filtered_tasks.append(task)
+
+            if not filtered_tasks:
                 self.label_tab_2.configure(text="Нет задач, соответствующих фильтрам")
                 return
 
             tasks_text = ""
-            for task in tasks:
+            for task in filtered_tasks:
                 task_id, task_text, status, priority, deadline, created_at = task
                 deadline_str = f"Дедлайн: {deadline}" if deadline else "Без дедлайна"
                 status_str = f"Статус: {status}"
+                
+                # Добавляем пометку "ПРОСРОЧЕНО" для просроченных задач
+                if deadline and deadline_filter == "Просроченные":
+                    try:
+                        deadline_date = datetime.strptime(deadline, '%d.%m.%y').date()
+                        if deadline_date < current_date:
+                            deadline_str = f"Дедлайн: {deadline} (ПРОСРОЧЕНО)"
+                    except ValueError:
+                        pass
+                
                 tasks_text += f"{task_text}\n{status_str}, {priority}, {deadline_str}\n\n"
 
             self.label_tab_2.configure(text=tasks_text)
