@@ -1,0 +1,301 @@
+* { /*универсальный селектор*/
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Geneva, sans-serif;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+/*background: linear-gradient(180deg, #0b0c10,#45a29e);*/  /* Фоновый цвет и фоновый рисунок*/
+  background: #FFFFFF/*#EEF2E3*//*linear-gradient(90deg,#5e7078,#4a5559,#373a3a);*/
+  color: #043F2E/*#1c1c1c; /*Цвет текста на странице*/ 
+  background-attachment: fixed; /* Фон страницы фиксируется */
+  background-repeat: repeat-y; /* Изображение повторяется по горизонтали */
+  background-size: 100%;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px; /* Фиксированная высота */
+  background: #FFFFFF/*#2A6F2B*//*#080c10*/;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8%;
+  /*box-shadow: 0 5px 10px #282B2F*//*#78C51C*//*#35a70f*//*#45a29e;*/
+  border-bottom: 1px solid #282B2F;
+  z-index: 1000; /* Чтобы header был выше контента */
+}
+
+
+
+header .logo {
+  font-size: 40px;
+  font-weight: 900;
+  color: #25492A/*#fff*/;
+  transition: .3s;
+}
+
+header .logo:hover {
+  transform: scale(1.2)
+}
+
+header nav ul li {
+  position: relative;
+  float: left; 
+}
+
+
+header nav ul li a {
+  padding: 15px;
+  color: #25492A/*#45a29e*/;
+  font-size: 16px;
+  display: block;
+}
+
+header nav ul li a:hover {
+  background: #B0B0B0/*#35a70f*//*#45a29e*/;
+  color: #FFFFFF/*#1f2833*/;
+}
+
+nav ul li ul {
+  position: absolute;
+  left: 0;
+  width: 180px;
+  background: #B0B0B0;
+  display: none;
+}
+
+nav ul li ul li {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,.1);
+}
+
+nav ul li ul li ul {
+  left: 180px;
+  top: 0;
+}
+
+nav ul li:hover >/*дочерний селектор, который является первым потомком*/ ul {
+  display: initial;
+}
+
+
+
+/*настройки для строки поиска*/
+.search-form {
+  margin-right: 30%;
+}
+
+.search-form input[type="text"] {
+  background-color: #1f2833;
+  color: #35a70f/*#45a29e*/;
+  padding: 8px 10px;
+  border: none;
+}
+
+.search-form button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* style.css */
+.container {
+  background-color: #F4F7D3/*#c4c6c7*/;
+  /*box-shadow: 0px 5px 10px rgb(225, 230, 231);*/
+  border: 1px solid #282B2F;
+  border-radius: 30px;
+  padding: 2rem;
+  margin-top: 10%;
+  margin-bottom: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 70%; /* Ширина контейнера */
+  /*display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;*/
+  display: flex; /* Включаем flexbox */ 
+  justify-content: center; /* Центрируем по горизонтали */ 
+  align-items: center; /* Центрируем по вертикали */ 
+  text-align: center; /* Центрируем текст, если он многострочный */
+}
+
+.container p {
+  text-align: justify;
+  
+}
+
+.container p:first-child {
+  color: #080c10;
+}
+
+.container p:last-child {
+  color: #1f2833 ;
+}
+
+
+/*заголовок страницы*/
+body h1 {
+  font-size: 300%;
+}
+
+/*подзаголовки*/
+body h4 {
+  font-size: 200%;
+}
+
+/*жирные термины*/
+body p strong {
+  font-size: 100%;
+}
+
+/*весь текст на странице*/
+body p {
+  font-size: 150%;
+}        
+
+/*цвет ссылок на главной странице*/
+body p a {
+  text-decoration: none;
+  color: #35a70f/*#45a29e;*/
+}
+
+/*три кнопки*/
+
+/* Выравнивание содержимого body по центру экрана */
+body {
+  display: flex;
+  justify-content: center; /* Горизонтальное выравнивание по центру */
+  align-items: center; /* Вертикальное выравнивание по центру */
+  height: 100vh; /* Задание высоты body на 100% высоты видимой области экрана */
+  margin: 0; /* Удаление внешних отступов */
+}
+
+/* Выравнивание содержимого кнопок по центру контейнера */
+.button-container {
+  display: flex;
+  justify-content: center; /* Горизонтальное выравнивание по центру */
+  align-items: center; /* Вертикальное выравнивание по центру */
+}
+
+/* Стили кнопок */
+.button {
+  width: 20%; /*ширина*/
+  height: 200px; /*высота*/
+  padding: 50px 50px; /* Задание внутренних отступов */
+  margin: 0 10px; /* Задание внешних отступов (горизонтальные отступы слева и справа) */
+  background-color: #c4c6c7; /* Цвет фона кнопки */
+  color: #080c10; /* Цвет текста кнопки */
+  text-decoration: none; /* Удаление стандартного подчеркивания ссылки */
+  border-radius: 5px; /* Задание радиуса скругления углов кнопки */
+  transition: background-color 0.3s ease; /* Плавный переход цвета фона при наведении */
+}
+
+/* Стили кнопок при наведении */
+.button:hover {
+  background-color: #F4F7D3/*#35a70f*//*#45a29e*/; /* Изменение цвета фона кнопки при наведении */
+}
+
+
+
+/*большое обновление после дня регистрации*/
+
+/* Стили для контента */
+/* Учитываем фиксированный header */
+#content {
+max-width: 1200px; /* Ограничиваем максимальную ширину */
+width: 90%; /* Гибкая ширина */
+margin: 120px auto auto; /* Добавляем верхний отступ, равный высоте header */
+padding: 20px;
+background: #F4F7D3; 
+border: 1px solid #282B2F;
+border-radius: 20px;
+/*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Лёгкая тень для отделения */
+/*border-radius: 10px; /* Скругление углов */
+border-left: 5px solid #25492A;
+}
+
+/* Стили для заголовков */
+#content h1 {
+font-size: 24px;
+color: #282B2F;
+text-align: center;
+margin-bottom: 20px;
+}
+
+/* Стили для ссылок */
+#content a {
+color: #25492A; /* Синий цвет ссылок */
+text-decoration: none;
+font-weight: bold;
+
+}
+
+#content a:hover {
+text-decoration: underline;
+}
+
+/* Стили для списка документов */
+#content p {
+font-size: 16px;
+line-height: 1.0;
+color: #444;
+margin: 10px 0;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+#content {
+  width: 95%;
+  padding: 15px;
+  margin-top: 120px; /* Увеличиваем отступ на мобильных, если header становится выше */
+}
+
+#content h1 {
+  font-size: 20px;
+}
+
+#content p {
+  font-size: 14px;
+}
+}
+
+.kanban-board {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 120px auto 40px;
+  max-width: 90%;
+  gap: 20px;
+}
+
+.kanban-column {
+  flex: 1;
+  background-color: #F4F7D3;
+  border: 1px solid #282B2F;
+  border-radius: 10px;
+  padding: 20px;
+  min-height: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.kanban-column:not(:last-child) {
+  border-right: 2px solid #282B2F;
+}
+
+.kanban-column h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #25492A;
+  font-size: 22px;
+  border-bottom: 1px solid #B0B0B0;
+  padding-bottom: 10px;
+}

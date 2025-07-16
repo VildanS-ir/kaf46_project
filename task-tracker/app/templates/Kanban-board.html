@@ -1,0 +1,134 @@
+<!-- index.html -->
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Таск-трекер</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+ .sidebar-wrapper {
+  position: fixed;
+  top: 80px; /* под хедером */
+  left: 0;
+  height: calc(100% - 80px);
+  z-index: 1001;
+}
+
+/* Сама панель */
+.sidebar-wrapper .sidebar {
+  position: absolute;
+  top: 0;
+  left: -200px;
+  width: 200px;
+  height: 100%;
+  background-color: #F4F7D3;
+  color: #25492A;
+  padding: 20px 0 20px 20px;
+  border-right: 1px solid #282B2F;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+  z-index: 1002;
+}
+
+/* При наведении на wrapper — показываем панель */
+.sidebar-wrapper:hover .sidebar {
+  left: 0;
+}
+
+/* Язычок теперь внутри sidebar, но “торчит” за левый край */
+.sidebar-tab {
+  position: absolute;
+  top: 40%;
+  right: -20px; /* ВЫСТАВЛЯЕТСЯ НАРУЖУ от боковой панели */
+  width: 20px;
+  height: 80px;
+  background-color: #25492A;
+  color: #FFFFFF;
+  font-size: 18px;
+  writing-mode: vertical-rl;
+  text-align: center;
+  line-height: 80px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  z-index: 1003;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+  display: block;
+  padding: 15px;
+  color: #25492A;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sidebar a:hover {
+  background: #B0B0B0;
+  color: #FFFFFF;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- всплывающее меню -->
+<div class="sidebar-wrapper">
+    <div class="sidebar">
+        <div class="sidebar-tab">☰</div>
+      <h3>Меню</h3>
+      <li><a href="#">Главная</a></li>
+      <li><a href="#">Проекты</a></li>
+      <li><a href="#">Настройки</a></li>
+      <li><a href="#">Справка</a></li>
+    </div>
+  </div>
+
+  <!-- Основной header -->
+  <header>
+    <a href="task-tracker.html" class="logo">Таск-трекер</a>
+
+    <nav>
+      <ul>
+        <li><a href="#">Сортировка</a>
+          <ul>
+            <li><a href="#">По приоритету (высокий → низкий)</a></li>
+            <li><a href="#">По дедлайну (ближайший → дальний)</a></li>
+            <li><a href="#">По дате создания (новый → старый)</a></li>
+            <li><a href="#">По исполнителю</a></li>
+            <li><a href="#">По типу задач</a></li>
+            <li><a href="#">По названию</a></li>
+            <li><a href="#">По последнему обновлению</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Режим доски</a>
+          <ul>
+            <li><a href="Kanban-board.html">Канбан доска</a></li>
+            <li><a href="desk.html">Доска задач</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  
+<!-- Канбан-доска -->
+<div class="kanban-board">
+  <div class="kanban-column">
+    <h2>Новое</h2>
+    <!-- Сюда можно добавлять карточки задач -->
+  </div>
+  <div class="kanban-column">
+    <h2>В процессе</h2>
+  </div>
+  <div class="kanban-column">
+    <h2>Завершенное</h2>
+  </div>
+</div>
+
+</body>
+</html>

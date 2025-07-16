@@ -1,0 +1,45 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>СправочникМедФизика</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Меню -->
+  <header>
+
+    <a href="index.html" class="logo">СправочникМедФизика</a>
+
+  <nav>
+    <ul>
+      <li><a href="#">Разделы</a>
+        <ul>
+          <li><a href="pageRD&T.html">Радионуклидная диагностика и терапия</a></li>
+          <li><a href="pageLT.html">Лучевая терапия</a></li>
+          <li><a href="pageUI.html">УЗИ</a></li>
+          <li><a href="pageMRT.html">МРТ</a></li>
+          <li><a href="pageSP.html">Техника безопасности</a></li>
+          <li><a href="pageRD.html">Нормативно-правовые документы</a></li>
+          <li><a href="pageRKT.html">РКТ</a></li>
+        </ul>
+      </li>
+      <li><a href="">Глоссарий</a></li>
+     
+   </ul>
+  </nav>
+  </header>
+ 
+  <div class="container">
+    <p>&nbsp;</p>
+    <p>Добро пожаловать в справочник медицинского физика!</p>
+    
+  </div>
+</body>
+
+</html>
