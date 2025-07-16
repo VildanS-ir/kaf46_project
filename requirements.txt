@@ -1,3 +1,1 @@
-customtkinter==5.2.1
-tk==0.1.0
-sqlite3==3.50.2
+customtkinter>=5.2.1
