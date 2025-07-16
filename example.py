@@ -234,8 +234,7 @@ class App(customtkinter.CTk):
             elif deadline_filter == "Без дедлайна":
                 conditions.append("deadline IS NULL")
             elif deadline_filter == "Просроченные":
-                conditions.append("deadline IS NOT NULL AND deadline < date('now', 'localtime')")
-
+                conditions.append("deadline IS NOT NULL AND date(deadline, '%d.%m.%y') < date('now', 'localtime')")
             # Добавляем условия к запросу, если они есть
             if conditions:
                 sql += " WHERE " + " AND ".join(conditions)
