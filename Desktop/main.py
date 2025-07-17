@@ -4,8 +4,8 @@ import sqlite3
 from datetime import datetime
 from tkinter import messagebox
 
-customtkinter.set_appearance_mode("System")
-customtkinter.set_default_color_theme("blue")
+customtkinter.set_appearance_mode("Dark")
+customtkinter.set_default_color_theme("green")
 
 
 class App(customtkinter.CTk):
@@ -226,9 +226,9 @@ class App(customtkinter.CTk):
             messagebox.showerror("Ошибка", f"Не удалось добавить задачу: {str(e)}")
 
     def update_task_display(self, event=None):
-        
+
         # """Обновление отображения задач на доске с учетом фильтров"""
-        
+
         try:
             # Получаем текущие значения фильтров
             priority_filter = self.priority_filter_var.get()
@@ -272,10 +272,10 @@ class App(customtkinter.CTk):
             # Фильтрация просроченных задач на стороне Python, если выбран соответствующий фильтр
             filtered_tasks = []
             current_date = datetime.now().date()
-            
+
             for task in tasks:
                 task_id, task_text, status, priority, deadline, created_at = task
-                
+
                 if deadline_filter == "Просроченные":
                     try:
                         deadline_date = datetime.strptime(deadline, '%d.%m.%y').date()
@@ -283,7 +283,7 @@ class App(customtkinter.CTk):
                             continue  # Пропускаем непросроченные задачи
                     except ValueError:
                         continue  # Пропускаем задачи с некорректным форматом даты
-                
+
                 filtered_tasks.append(task)
 
             if not filtered_tasks:
@@ -295,7 +295,7 @@ class App(customtkinter.CTk):
                 task_id, task_text, status, priority, deadline, created_at = task
                 deadline_str = f"Дедлайн: {deadline}" if deadline else "Без дедлайна"
                 status_str = f"Статус: {status}"
-                
+
                 # Добавляем пометку "ПРОСРОЧЕНО" для просроченных задач
                 if deadline and deadline_filter == "Просроченные":
                     try:
@@ -304,7 +304,7 @@ class App(customtkinter.CTk):
                             deadline_str = f"Дедлайн: {deadline} (ПРОСРОЧЕНО)"
                     except ValueError:
                         pass
-                
+
                 tasks_text += f"{task_text}\n{status_str}, {priority}, {deadline_str}\n\n"
 
             self.label_tab_2.configure(text=tasks_text)
